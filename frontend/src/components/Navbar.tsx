@@ -20,6 +20,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   const navLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
     if (currentPage === 'contact') {
       setActiveSection('contact');
       return;
@@ -105,7 +116,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   return (
     <>
-      <header className="fixed top-0 left-0 w-full z-50 bg-white border-b border-[#EBEBEB] h-20 md:h-24 flex items-center justify-between px-6 md:px-12 select-none">
+      <header className="fixed top-0 left-0 w-full z-50 bg-white border-b border-[#EBEBEB] h-20 md:h-24 flex items-center justify-between px-3.5 sm:px-6 md:px-12 select-none">
         
         {/* Left Side: Max Water Industrial Brand Logo */}
         <a 

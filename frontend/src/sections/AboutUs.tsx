@@ -3,7 +3,7 @@ import React from 'react';
 export const AboutUs: React.FC = () => {
   return (
     <section id="about" className="w-full bg-white py-16 md:py-24 border-b border-[#EBEBEB] select-none scroll-mt-24 md:scroll-mt-28">
-      <div className="max-w-[94%] lg:max-w-[92%] mx-auto px-4 md:px-8">
+      <div className="max-w-[98%] sm:max-w-[94%] lg:max-w-[92%] mx-auto px-2 sm:px-4 md:px-8">
         
         {/* 18 Years of B2B Industrial Excellence & Quality Standards */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

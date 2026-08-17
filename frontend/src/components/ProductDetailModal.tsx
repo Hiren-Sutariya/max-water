@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { X, ArrowUpRight } from 'lucide-react';
 import type { Product } from '../types';
 
@@ -13,10 +13,21 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   onClose,
   onEnquireClick,
 }) => {
+  useEffect(() => {
+    if (product) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [product]);
+
   if (!product) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 select-none">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 select-none">
       {/* Backdrop overlay */}
       <div
         className="absolute inset-0 bg-[#061824]/80 backdrop-blur-sm transition-opacity"
@@ -24,12 +35,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
       />
 
       {/* Modal Content Window */}
-      <div className="relative bg-white rounded-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto shadow-2xl border border-white/10 z-10 animate-[modalScale_0.25s_ease-out]">
+      <div className="relative bg-white rounded-2xl w-full max-w-4xl max-h-[92vh] overflow-y-auto shadow-2xl border border-white/10 z-10 animate-[modalScale_0.25s_ease-out]">
         
         <div className="grid grid-cols-1 md:grid-cols-12">
           
           {/* Left Column: Brand, Description & Applications */}
-          <div className="md:col-span-5 bg-[#063B5C] text-white p-8 flex flex-col justify-between relative overflow-hidden min-h-[320px] md:min-h-[400px]">
+          <div className="md:col-span-5 bg-[#063B5C] text-white p-5 sm:p-8 flex flex-col justify-between relative overflow-hidden min-h-[280px] md:min-h-[400px]">
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(25,184,200,0.12)_0%,transparent_80%)] pointer-events-none" />
             
             {/* Product Header & Summary */}

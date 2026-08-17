@@ -90,7 +90,7 @@ export const Products: React.FC<ProductsProps> = ({ onProductSelect }) => {
 
   return (
     <section id="products" className="w-full bg-[#F4F8FA] py-16 md:py-24 border-b border-[#EBEBEB] select-none scroll-mt-24 md:scroll-mt-28">
-      <div className="max-w-[94%] lg:max-w-[92%] mx-auto px-4 md:px-8">
+      <div className="max-w-[98%] sm:max-w-[94%] lg:max-w-[92%] mx-auto px-2 sm:px-4 md:px-8">
         
         {/* Section Header */}
         <div className="mb-12 space-y-3 text-left">

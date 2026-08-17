@@ -169,12 +169,12 @@ export const ContactPage: React.FC<ContactPageProps> = ({ selectedProduct }) => 
       </section>
 
       {/* Form & Contact Details Section */}
-      <section id="contact-form-section" className="w-full py-16 md:py-24 bg-[#F4F8FA] border-b border-[#EBEBEB] scroll-mt-24 md:scroll-mt-28">
-        <div className="max-w-[94%] lg:max-w-[92%] mx-auto px-4 md:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 text-left">
+      <section id="contact-form-section" className="w-full py-12 md:py-24 bg-[#F4F8FA] border-b border-[#EBEBEB] scroll-mt-24 md:scroll-mt-28">
+        <div className="max-w-[96%] sm:max-w-[94%] lg:max-w-[92%] mx-auto px-2 sm:px-4 md:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-left">
             
             {/* Left Side: B2B Inquiry Form (lg:col-span-7) */}
-            <div className="lg:col-span-7 bg-white border border-[#EBEBEB] p-8 md:p-12 shadow-xs space-y-6">
+            <div className="lg:col-span-7 bg-white border border-[#EBEBEB] p-4 sm:p-7 md:p-12 shadow-xs space-y-6">
               
               <div>
                 <span className="text-xs font-heading font-semibold text-[#087EAA] tracking-widest uppercase block mb-1">

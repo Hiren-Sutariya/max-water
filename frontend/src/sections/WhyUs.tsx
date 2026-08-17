@@ -31,7 +31,7 @@ export const WhyUs: React.FC = () => {
 
   return (
     <section id="why-us" className="w-full bg-[#F4F8FA] text-[#10202B] py-16 md:py-24 border-b border-[#EBEBEB] select-none scroll-mt-24 md:scroll-mt-28">
-      <div className="max-w-[94%] lg:max-w-[92%] mx-auto px-4 md:px-8 space-y-12">
+      <div className="max-w-[98%] sm:max-w-[94%] lg:max-w-[92%] mx-auto px-2 sm:px-4 md:px-8 space-y-12">
         
         {/* Section Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end text-left">

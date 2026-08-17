@@ -40,7 +40,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreProducts: _onExploreProduct
       <div className="absolute inset-0 bg-white/70 pointer-events-none" />
 
       {/* Centered Copy Area */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 flex-grow flex flex-col justify-center items-center text-center py-12 md:py-16">
+      <div className="relative z-10 w-full max-w-[96%] sm:max-w-[94%] lg:max-w-5xl mx-auto px-2 sm:px-4 md:px-6 flex-grow flex flex-col justify-center items-center text-center py-12 md:py-16">
         <div className="max-w-4xl space-y-5 flex flex-col items-center">
 
           {/* Centered Heading in Chakra Petch font */}

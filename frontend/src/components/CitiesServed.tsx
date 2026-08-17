@@ -12,7 +12,7 @@ export const CitiesServed: React.FC = () => {
 
   return (
     <section id="cities" className="w-full bg-[#10202B] py-16 md:py-24 border-b border-[#1E3442] select-none">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 text-center space-y-12">
+      <div className="max-w-[98%] sm:max-w-7xl mx-auto px-2 sm:px-4 md:px-12 text-center space-y-12">
         
         {/* Centered Heading in Chakra Petch */}
         <div className="space-y-3">

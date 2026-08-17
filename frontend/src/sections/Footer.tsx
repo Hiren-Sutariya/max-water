@@ -41,7 +41,7 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
       
       {/* Top CTA Banner */}
       <div className="w-full border-b border-white/10 py-16 md:py-20 bg-[#061824]">
-        <div className="max-w-[94%] lg:max-w-[92%] mx-auto px-4 md:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+        <div className="max-w-[98%] sm:max-w-[94%] lg:max-w-[92%] mx-auto px-2 sm:px-4 md:px-8 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
           <div className="space-y-2 max-w-2xl text-left">
             <span className="text-xs font-heading font-medium tracking-widest text-[#19B8C8] uppercase block">
               ESTABLISHED 2006 • GUJARAT B2B LOGISTICS
@@ -61,7 +61,7 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
       </div>
 
       {/* Main Footer Content */}
-      <div className="max-w-[94%] lg:max-w-[92%] mx-auto px-4 md:px-8 py-16 md:py-24 bg-[#041018]">
+      <div className="max-w-[98%] sm:max-w-[94%] lg:max-w-[92%] mx-auto px-2 sm:px-4 md:px-8 py-16 md:py-24 bg-[#041018]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
           
           {/* Left Side: Brand Logo & Profile (lg:col-span-5) */}
