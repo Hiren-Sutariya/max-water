@@ -1,0 +1,8 @@
+# Robots.txt for Max Water B2B Process Water Logistics
+User-agent: *
+Allow: /
+Allow: /products/
+Allow: /sitemap.xml
+
+# XML Sitemap Link
+Sitemap: https://maxwater.in/sitemap.xml

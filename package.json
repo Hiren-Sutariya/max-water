@@ -1,0 +1,11 @@
+{
+  "name": "max-water-b2b-project",
+  "version": "1.0.0",
+  "description": "Max Water B2B Process Water Monorepo (Frontend & Backend)",
+  "scripts": {
+    "dev:frontend": "cd frontend && npm run dev",
+    "dev:backend": "cd backend && npm run dev",
+    "build:frontend": "cd frontend && npm run build",
+    "start:backend": "cd backend && npm start"
+  }
+}

@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Chakra+Petch:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #063B5C;
+  --color-secondary: #087EAA;
+  --color-accent: #19B8C8;
+  --color-light-bg: #F2FAFC;
+  --color-dark-text: #10202B;
+  --color-secondary-text: #5D7180;
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-heading: 'Chakra Petch', system-ui, sans-serif;
+}
+
+/* Hide Scrollbars globally across all browsers, while keeping scrolling functional */
+::-webkit-scrollbar {
+  display: none;
+}
+html, body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Global resets for full-width layout */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  color: var(--color-dark-text);
+  background-color: #ffffff;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+#root {
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  text-align: left !important;
+  border: none !important;
+}
+
+/* Typography styles */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Glassmorphism utility */
+.glass-nav {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(6, 59, 92, 0.08);
+}
+
+.glass-nav-dark {
+  background: rgba(16, 32, 43, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(25, 184, 200, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(6, 59, 92, 0.06);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(25, 184, 200, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(6, 59, 92, 0.08);
+}
+
+/* Aqua Glow effect */
+.glow-accent {
+  box-shadow: 0 0 20px rgba(25, 184, 200, 0.2);
+}
+
+.glow-accent:hover {
+  box-shadow: 0 0 30px rgba(25, 184, 200, 0.4);
+}
+
+/* Flow line animation keyframes */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-flow {
+  stroke-dasharray: 8 4;
+  animation: dash 2s linear infinite;
+}
+
+/* Smooth ripple keyframes for custom interactive canvas hover */
+@keyframes ripple-pulse {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+.ripple-effect {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(25, 184, 200, 0.2);
+  pointer-events: none;
+  animation: ripple-pulse 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+/* Selection Highlight */
+::selection {
+  background-color: rgba(25, 184, 200, 0.3);
+  color: #063B5C;
+}
