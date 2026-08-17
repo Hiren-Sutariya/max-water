@@ -108,7 +108,11 @@ export const ContactPage: React.FC<ContactPageProps> = ({ selectedProduct }) => 
     setIsSubmitted(true);
 
     try {
-      await fetch('http://localhost:5001/api/contact', {
+      const apiUrl = window.location.hostname === 'localhost' 
+        ? 'http://localhost:5001/api/contact'
+        : 'https://max-water.onrender.com/api/contact';
+
+      await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

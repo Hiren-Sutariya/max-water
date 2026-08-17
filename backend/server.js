@@ -43,6 +43,20 @@ function saveInquiry(inquiry) {
   return current;
 }
 
+// Root API Welcome Route
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    service: 'Max Water B2B Process Water API Server',
+    status: 'ONLINE',
+    endpoints: {
+      health: '/api/health',
+      inquiries: '/api/inquiries',
+      contact: 'POST /api/contact'
+    }
+  });
+});
+
 // Health Check API Route
 app.get('/api/health', (req, res) => {
   res.status(200).json({
