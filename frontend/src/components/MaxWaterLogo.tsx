@@ -2,7 +2,7 @@ import React from 'react';
 
 interface MaxWaterLogoProps {
   variant?: 'light' | 'dark'; // 'dark' text for light header, 'light' text for dark footer
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   showSubtitle?: boolean;
 }
 
@@ -17,12 +17,16 @@ export const MaxWaterLogo: React.FC<MaxWaterLogoProps> = ({
     sm: 'w-8 h-8',
     md: 'w-10 h-10',
     lg: 'w-12 h-12 md:w-14 md:h-14',
+    xl: 'w-16 h-16 md:w-20 md:h-20',
+    '2xl': 'w-24 h-24 md:w-32 md:h-32',
   };
 
   const titleSizes = {
     sm: 'text-sm',
     md: 'text-base md:text-lg',
     lg: 'text-xl md:text-2xl',
+    xl: 'text-2xl sm:text-3xl md:text-4xl',
+    '2xl': 'text-4xl md:text-6xl',
   };
 
   return (
@@ -97,7 +101,9 @@ export const MaxWaterLogo: React.FC<MaxWaterLogoProps> = ({
         </div>
 
         {showSubtitle && (
-          <span className="font-mono text-[9px] tracking-widest text-[#087EAA] uppercase pt-1 font-medium">
+          <span className={`font-mono tracking-widest text-[#19B8C8] uppercase font-medium ${
+            size === 'xl' || size === '2xl' ? 'text-xs sm:text-sm tracking-[0.25em] pt-1.5' : 'text-[9px] pt-1'
+          }`}>
             INDUSTRIAL B2B PURITY
           </span>
         )}

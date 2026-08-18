@@ -33,17 +33,10 @@ export const Preloader: React.FC = () => {
       {/* Background Radial Glow */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(25,184,200,0.18)_0%,transparent_70%)] pointer-events-none" />
 
-      {/* Centered Logo Only */}
-      <div className="relative z-10 animate-[splashScale_0.6s_ease-out] drop-shadow-[0_0_35px_rgba(25,184,200,0.6)]">
-        <MaxWaterLogo variant="light" size="lg" showSubtitle={true} />
+      {/* Centered Stable Splash Logo */}
+      <div className="relative z-10 drop-shadow-[0_0_50px_rgba(25,184,200,0.5)]">
+        <MaxWaterLogo variant="light" size="xl" showSubtitle={true} />
       </div>
-
-      <style>{`
-        @keyframes splashScale {
-          from { transform: scale(0.85); opacity: 0; }
-          to { transform: scale(1); opacity: 1; }
-        }
-      `}</style>
     </div>
   );
 };
