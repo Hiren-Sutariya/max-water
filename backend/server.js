@@ -77,7 +77,7 @@ app.get('/api/inquiries', (req, res) => {
 });
 
 // GET /admin & GET /dashboard - Clean Light Theme B2B Admin Inquiry Dashboard GUI
-app.get(['/admin', '/dashboard'], (req, res) => {
+app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
   const inquiries = loadInquiries();
   const htmlContent = `
 <!DOCTYPE html>
@@ -97,89 +97,89 @@ app.get(['/admin', '/dashboard'], (req, res) => {
 </head>
 <body class="min-h-screen pb-12">
 
-  <!-- Header Banner (Clean Light Theme) -->
-  <header class="bg-white border-b border-[#EBEBEB] px-4 sm:px-8 py-4 sticky top-0 z-50 shadow-xs">
-    <div class="max-w-[98%] mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+  <!-- Header Banner (Clean Light Theme & Fully Responsive) -->
+  <header class="bg-white border-b border-[#EBEBEB] px-3 sm:px-8 py-3.5 sticky top-0 z-50 shadow-xs">
+    <div class="max-w-[98%] mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-3">
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-lg bg-[#087EAA] flex items-center justify-center font-heading font-bold text-white text-xl shadow-sm">
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-[#087EAA] flex items-center justify-center font-heading font-bold text-white text-lg sm:text-xl shadow-sm shrink-0">
           W
         </div>
         <div>
-          <h1 class="font-heading font-semibold text-xl md:text-2xl tracking-wider uppercase text-[#10202B] flex items-center gap-2">
-            MAX WATER <span class="text-[#087EAA] text-xs font-sans font-semibold px-2.5 py-0.5 rounded-full bg-[#087EAA]/10 border border-[#087EAA]/20">ADMIN PORTAL</span>
+          <h1 class="font-heading font-semibold text-lg sm:text-2xl tracking-wider uppercase text-[#10202B] flex items-center gap-2 flex-wrap">
+            MAX WATER <span class="text-[#087EAA] text-[10px] sm:text-xs font-sans font-semibold px-2 py-0.5 rounded-full bg-[#087EAA]/10 border border-[#087EAA]/20">ADMIN PORTAL</span>
           </h1>
-          <p class="text-xs text-[#5D7180] font-medium">B2B Process Water Inquiry Management System</p>
+          <p class="text-[11px] sm:text-xs text-[#5D7180] font-medium">B2B Process Water Inquiry Management System (maxwater.in)</p>
         </div>
       </div>
 
-      <div class="flex items-center gap-3 shrink-0">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           Live Server Online
         </span>
-        <button onclick="downloadCSV()" class="bg-[#087EAA] hover:bg-[#063B5C] text-white px-4 py-2 rounded-lg text-xs font-heading font-semibold tracking-wider uppercase transition-all flex items-center gap-2 cursor-pointer shadow-sm">
-          📥 Export CSV Excel
+        <button onclick="downloadCSV()" class="bg-[#087EAA] hover:bg-[#063B5C] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-heading font-semibold tracking-wider uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-sm">
+          📥 Export CSV
         </button>
       </div>
     </div>
   </header>
 
   <!-- Main Content Area -->
-  <main class="max-w-[98%] mx-auto px-2 sm:px-4 mt-6 space-y-6">
+  <main class="max-w-[98%] mx-auto px-2 sm:px-4 mt-4 sm:mt-6 space-y-4 sm:space-y-6">
 
     <!-- Summary Stats Bar -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-white border border-[#EBEBEB] rounded-xl p-5 flex items-center justify-between shadow-xs">
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
+      <div class="bg-white border border-[#EBEBEB] rounded-xl p-4 sm:p-5 flex items-center justify-between shadow-xs">
         <div>
-          <p class="text-xs font-semibold text-[#5D7180] uppercase tracking-wider">Total B2B Inquiries</p>
-          <p class="font-heading font-bold text-3xl text-[#087EAA] mt-1" id="totalCount">${inquiries.length}</p>
+          <p class="text-[11px] sm:text-xs font-semibold text-[#5D7180] uppercase tracking-wider">Total B2B Inquiries</p>
+          <p class="font-heading font-bold text-2xl sm:text-3xl text-[#087EAA] mt-1" id="totalCount">${inquiries.length}</p>
         </div>
-        <div class="w-12 h-12 rounded-lg bg-[#087EAA]/10 border border-[#087EAA]/20 flex items-center justify-center text-2xl">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-[#087EAA]/10 border border-[#087EAA]/20 flex items-center justify-center text-xl sm:text-2xl">
           📋
         </div>
       </div>
 
-      <div class="bg-white border border-[#EBEBEB] rounded-xl p-5 flex items-center justify-between shadow-xs">
+      <div class="bg-white border border-[#EBEBEB] rounded-xl p-4 sm:p-5 flex items-center justify-between shadow-xs">
         <div>
-          <p class="text-xs font-semibold text-[#5D7180] uppercase tracking-wider">Top Industrial Hubs</p>
-          <p class="font-heading font-semibold text-lg text-[#10202B] mt-1">Surat • Ankleshwar • Dahej</p>
+          <p class="text-[11px] sm:text-xs font-semibold text-[#5D7180] uppercase tracking-wider">Top Industrial Hubs</p>
+          <p class="font-heading font-semibold text-base sm:text-lg text-[#10202B] mt-1">Surat • Ankleshwar • Dahej</p>
         </div>
-        <div class="w-12 h-12 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center text-2xl">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-sky-50 border border-sky-200 flex items-center justify-center text-xl sm:text-2xl">
           🏭
         </div>
       </div>
 
-      <div class="bg-white border border-[#EBEBEB] rounded-xl p-5 flex items-center justify-between shadow-xs">
+      <div class="bg-white border border-[#EBEBEB] rounded-xl p-4 sm:p-5 flex items-center justify-between shadow-xs">
         <div>
-          <p class="text-xs font-semibold text-[#5D7180] uppercase tracking-wider">System Status</p>
-          <p class="font-heading font-semibold text-base text-emerald-600 mt-1">WhatsApp Direct Sync Active</p>
+          <p class="text-[11px] sm:text-xs font-semibold text-[#5D7180] uppercase tracking-wider">System Status</p>
+          <p class="font-heading font-semibold text-sm sm:text-base text-emerald-600 mt-1">WhatsApp Direct Sync Active</p>
         </div>
-        <div class="w-12 h-12 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-2xl">
+        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-emerald-50 border border-emerald-200 flex items-center justify-center text-xl sm:text-2xl">
           💬
         </div>
       </div>
     </div>
 
     <!-- Search & Filter Bar -->
-    <div class="bg-white border border-[#EBEBEB] rounded-xl p-4 flex flex-col md:flex-row gap-4 items-center justify-between shadow-xs">
-      <div class="relative w-full md:w-96">
+    <div class="bg-white border border-[#EBEBEB] rounded-xl p-3.5 sm:p-4 flex flex-col sm:flex-row gap-3 items-center justify-between shadow-xs">
+      <div class="relative w-full sm:w-80 md:w-96">
         <input 
           type="text" 
           id="searchInput" 
           onkeyup="filterTable()" 
           placeholder="Search client, company, phone or city..." 
-          class="w-full bg-[#F4F8FA] border border-[#EBEBEB] rounded-lg px-4 py-2 text-sm text-[#10202B] placeholder-slate-400 focus:outline-none focus:border-[#087EAA] transition-all"
+          class="w-full bg-[#F4F8FA] border border-[#EBEBEB] rounded-lg px-3.5 py-2 text-xs sm:text-sm text-[#10202B] placeholder-slate-400 focus:outline-none focus:border-[#087EAA] transition-all"
         />
       </div>
-      <div class="text-xs text-[#5D7180] font-medium">
+      <div class="text-xs text-[#5D7180] font-medium self-end sm:self-center">
         Showing <span id="visibleCount" class="text-[#10202B] font-bold">${inquiries.length}</span> of ${inquiries.length} inquiries
       </div>
     </div>
 
-    <!-- Inquiries Table (Light Theme with No Text Overlap) -->
+    <!-- Inquiries Table (Light Theme, Fully Responsive & Delete Option) -->
     <div class="bg-white border border-[#EBEBEB] rounded-xl overflow-hidden shadow-xs">
       <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse" id="inquiriesTable">
+        <table class="w-full text-left border-collapse min-w-[700px]" id="inquiriesTable">
           <thead>
             <tr class="bg-[#F9FBFD] border-b border-[#EBEBEB] text-[#5D7180] text-xs font-heading font-semibold uppercase tracking-wider">
               <th class="py-3.5 px-4 whitespace-nowrap">Inquiry ID / Date</th>
@@ -188,7 +188,7 @@ app.get(['/admin', '/dashboard'], (req, res) => {
               <th class="py-3.5 px-4 whitespace-nowrap">Packaging Sizing</th>
               <th class="py-3.5 px-4 whitespace-nowrap">Delivery City</th>
               <th class="py-3.5 px-4">Specific Notes</th>
-              <th class="py-3.5 px-4 text-right whitespace-nowrap">Quick Action</th>
+              <th class="py-3.5 px-4 text-right whitespace-nowrap">Actions</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-[#EBEBEB] text-sm">
@@ -199,7 +199,7 @@ app.get(['/admin', '/dashboard'], (req, res) => {
                 </td>
               </tr>
             ` : inquiries.slice().reverse().map(item => `
-              <tr class="hover:bg-[#F4F8FA] transition-colors group">
+              <tr id="row-${item.id}" class="hover:bg-[#F4F8FA] transition-colors group">
                 <td class="py-3.5 px-4 font-mono text-xs whitespace-nowrap">
                   <span class="text-[#087EAA] font-bold block">${item.id || 'MW-INQ'}</span>
                   <span class="text-[#5D7180] text-[11px] block mt-0.5">${item.createdAt ? new Date(item.createdAt).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }) : 'Just now'}</span>
@@ -227,20 +227,27 @@ app.get(['/admin', '/dashboard'], (req, res) => {
                   </span>
                 </td>
 
-                <td class="py-3.5 px-4 min-w-[200px] max-w-xs text-xs text-[#5D7180] leading-relaxed">
+                <td class="py-3.5 px-4 min-w-[180px] max-w-xs text-xs text-[#5D7180] leading-relaxed">
                   ${item.message && item.message.trim() ? `"${item.message}"` : '<span class="text-slate-400">-</span>'}
                 </td>
 
-                <td class="py-3.5 px-4 text-right whitespace-nowrap">
+                <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-2">
                   ${item.phone ? `
                     <a 
                       href="https://wa.me/91${item.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(item.name || '')},%20regarding%20your%20Max%20Water%20B2B%20inquiry..." 
                       target="_blank"
-                      class="inline-flex items-center gap-1 bg-[#10B981] hover:bg-[#059669] text-white px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer"
+                      class="inline-flex items-center gap-1 bg-[#10B981] hover:bg-[#059669] text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer"
                     >
                       💬 WhatsApp
                     </a>
                   ` : ''}
+                  <button 
+                    onclick="deleteInquiry('${item.id}')"
+                    class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 hover:border-red-600 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer"
+                    title="Delete Inquiry"
+                  >
+                    🗑️ Delete
+                  </button>
                 </td>
               </tr>
             `).join('')}
@@ -267,6 +274,23 @@ app.get(['/admin', '/dashboard'], (req, res) => {
       });
 
       document.getElementById('visibleCount').innerText = visible;
+    }
+
+    async function deleteInquiry(id) {
+      if (!confirm('Are you sure you want to delete inquiry ' + id + '?')) return;
+      try {
+        const res = await fetch('/api/inquiries/' + id, { method: 'DELETE' });
+        const data = await res.json();
+        if (data.success) {
+          const row = document.getElementById('row-' + id);
+          if (row) row.remove();
+          location.reload();
+        } else {
+          alert('Failed to delete inquiry: ' + (data.error || 'Unknown error'));
+        }
+      } catch (err) {
+        alert('Error deleting inquiry: ' + err.message);
+      }
     }
 
     function downloadCSV() {
@@ -301,6 +325,27 @@ app.get(['/admin', '/dashboard'], (req, res) => {
   `;
   res.setHeader('Content-Type', 'text/html');
   res.send(htmlContent);
+});
+
+// DELETE /api/inquiries/:id - Delete an inquiry by ID
+app.delete('/api/inquiries/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+    let inquiries = loadInquiries();
+    const initialCount = inquiries.length;
+    inquiries = inquiries.filter(item => item.id !== id);
+
+    if (inquiries.length === initialCount) {
+      return res.status(404).json({ success: false, error: 'Inquiry not found' });
+    }
+
+    fs.writeFileSync(INQUIRIES_FILE, JSON.stringify(inquiries, null, 2), 'utf8');
+    console.log(`[B2B INQUIRY DELETED] ${id}`);
+    return res.status(200).json({ success: true, message: `Inquiry ${id} deleted successfully` });
+  } catch (err) {
+    console.error('Error deleting inquiry:', err);
+    return res.status(500).json({ success: false, error: 'Failed to delete inquiry' });
+  }
 });
 
 

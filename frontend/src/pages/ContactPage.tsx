@@ -107,10 +107,10 @@ export const ContactPage: React.FC<ContactPageProps> = ({ selectedProduct }) => 
     e.preventDefault();
     setIsSubmitted(true);
 
-    // 1. Send inquiry to backend asynchronously in the background
+    // 1. Send inquiry to backend asynchronously in the background (saves to Admin Panel)
     const apiUrl = window.location.hostname === 'localhost' 
       ? 'http://localhost:5001/api/contact'
-      : 'https://max-water.onrender.com/api/contact';
+      : (window.location.hostname.includes('maxwater.in') ? '/api/contact' : 'https://max-water.onrender.com/api/contact');
 
     fetch(apiUrl, {
       method: 'POST',
