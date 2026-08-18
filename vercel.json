@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/admin", "destination": "https://max-water.onrender.com/admin" },
+    { "source": "/dashboard", "destination": "https://max-water.onrender.com/dashboard" },
+    { "source": "/api/:path*", "destination": "https://max-water.onrender.com/api/:path*" }
+  ]
+}
