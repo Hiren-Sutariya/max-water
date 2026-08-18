@@ -405,7 +405,7 @@ app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
                     </a>
                   ` : ''}
                   <button 
-                    onclick="deleteInquiry('${item.id}')"
+                    onclick="promptDeleteInquiry('${item.id}')"
                     class="inline-flex items-center gap-1 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 hover:border-red-600 px-2.5 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-xs cursor-pointer"
                     title="Delete Inquiry"
                   >
@@ -419,6 +419,42 @@ app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
       </div>
     </div>
   </main>
+
+  <!-- Custom Centered Delete Confirmation Modal -->
+  <div id="deleteModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+    <!-- Backdrop overlay -->
+    <div class="absolute inset-0 bg-[#061824]/60 backdrop-blur-sm" onclick="closeDeleteModal()"></div>
+    
+    <!-- Modal Dialog Box -->
+    <div class="relative bg-white rounded-2xl p-6 sm:p-8 max-w-sm sm:max-w-md w-full shadow-2xl border border-[#EBEBEB] text-center space-y-4 z-10 animate-[modalScale_0.2s_ease-out]">
+      <div class="w-14 h-14 bg-red-100 text-red-600 rounded-full flex items-center justify-center mx-auto text-2xl shadow-inner">
+        🗑️
+      </div>
+      
+      <div class="space-y-1.5">
+        <h3 class="font-heading font-semibold text-xl sm:text-2xl text-[#10202B] uppercase">Delete Inquiry?</h3>
+        <p class="text-xs sm:text-sm text-[#5D7180] leading-relaxed">
+          Are you sure you want to permanently delete inquiry <span id="deleteModalId" class="font-bold text-[#087EAA] font-mono"></span>? This action cannot be undone.
+        </p>
+      </div>
+
+      <div class="flex items-center justify-center gap-3 pt-3">
+        <button 
+          onclick="closeDeleteModal()" 
+          class="w-1/2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-heading font-semibold text-xs uppercase tracking-wider py-2.5 sm:py-3 rounded-xl transition-all cursor-pointer"
+        >
+          Cancel
+        </button>
+        <button 
+          id="confirmDeleteBtn"
+          onclick="confirmDelete()" 
+          class="w-1/2 bg-red-600 hover:bg-red-700 text-white font-heading font-semibold text-xs uppercase tracking-wider py-2.5 sm:py-3 rounded-xl transition-all shadow-md cursor-pointer"
+        >
+          Yes, Delete
+        </button>
+      </div>
+    </div>
+  </div>
 
   <script>
     function filterTable() {
@@ -446,20 +482,43 @@ app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
       location.reload();
     }
 
-    async function deleteInquiry(id) {
-      if (!confirm('Are you sure you want to delete inquiry ' + id + '?')) return;
+    let selectedDeleteId = null;
+
+    function promptDeleteInquiry(id) {
+      selectedDeleteId = id;
+      document.getElementById('deleteModalId').innerText = id;
+      document.getElementById('deleteModal').classList.remove('hidden');
+    }
+
+    function closeDeleteModal() {
+      selectedDeleteId = null;
+      document.getElementById('deleteModal').classList.add('hidden');
+    }
+
+    async function confirmDelete() {
+      if (!selectedDeleteId) return;
+      const id = selectedDeleteId;
+      const btn = document.getElementById('confirmDeleteBtn');
+      btn.innerText = 'DELETING...';
+      btn.disabled = true;
+
       try {
         const res = await fetch('/api/inquiries/' + id, { method: 'DELETE' });
         const data = await res.json();
         if (data.success) {
           const row = document.getElementById('row-' + id);
           if (row) row.remove();
+          closeDeleteModal();
           location.reload();
         } else {
           alert('Failed to delete inquiry: ' + (data.error || 'Unknown error'));
+          btn.innerText = 'Yes, Delete';
+          btn.disabled = false;
         }
       } catch (err) {
         alert('Error deleting inquiry: ' + err.message);
+        btn.innerText = 'Yes, Delete';
+        btn.disabled = false;
       }
     }
 
