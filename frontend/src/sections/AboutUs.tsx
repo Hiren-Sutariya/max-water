@@ -33,7 +33,7 @@ export const AboutUs: React.FC = () => {
             <ul className="space-y-4 font-sans text-xs md:text-sm text-[#5D7180]">
               <li className="flex items-start gap-3">
                 <span className="text-[#087EAA] font-bold">✓</span>
-                <span><strong>TDS Guarantee:</strong> Deionized water strictly maintained under TDS &lt; 1 ppm.</span>
+                <span><strong>TDS Guarantee:</strong> Deionized water strictly maintained with TDS or ppm at 0.</span>
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-[#087EAA] font-bold">✓</span>

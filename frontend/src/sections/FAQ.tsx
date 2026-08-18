@@ -20,7 +20,7 @@ export const FAQ: React.FC = () => {
     },
     {
       question: 'How does Max Water guarantee batch purity & TDS levels?',
-      answer: 'Every batch undergoes laboratory testing prior to dispatch. We provide a Certificate of Analysis (CoA) with each delivery certifying TDS < 1 ppm for DI water, electrical conductivity (< 1.0 µS/cm), zero hardness, and exact pH compliance.',
+      answer: 'Every batch undergoes laboratory testing prior to dispatch. We provide a Certificate of Analysis (CoA) with each delivery certifying TDS or ppm at 0 for DI water, electrical conductivity (< 1.0 µS/cm), zero hardness, and exact pH compliance.',
     },
     {
       question: 'What delivery capacities and packaging options are available?',
@@ -28,7 +28,7 @@ export const FAQ: React.FC = () => {
     },
     {
       question: 'How to initiate sample testing or bulk supply contracts?',
-      answer: 'You can click "Request a call" or reach our industrial supply desk directly via WhatsApp. Our technical engineering team evaluates your water spec requirements and delivers sample batches within 24-48 hours.',
+      answer: 'You can click "Request a call" or reach our industrial supply desk directly via WhatsApp. Our technical engineering team evaluates your water spec requirements and delivers sample batches within 12-24 hours.',
     },
   ];
 

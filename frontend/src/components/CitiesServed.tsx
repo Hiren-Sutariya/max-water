@@ -20,6 +20,13 @@ export const CitiesServed: React.FC = () => {
             CITIES & INDUSTRIAL HUBS SERVED
           </h2>
           <div className="w-12 h-1 bg-[#087EAA] mx-auto" />
+          
+          {/* Prominent Bulk Supply Badge */}
+          <div className="pt-2">
+            <span className="inline-block bg-[#087EAA]/20 border border-[#19B8C8]/40 text-[#19B8C8] text-xs sm:text-sm font-heading font-medium tracking-widest px-4 sm:px-6 py-2 uppercase rounded-full shadow-xs">
+              ⚡ ALSO AVAILABLE ALL OVER GUJARAT (ONLY BULK SUPPLY)
+            </span>
+          </div>
         </div>
 
         {/* 6 Minimal Typographic City Name Cards */}
@@ -39,8 +46,7 @@ export const CitiesServed: React.FC = () => {
         {/* Bottom Subtitle with Highlighted Text */}
         <div className="pt-6 border-t border-white/10 max-w-3xl mx-auto">
           <p className="text-sm md:text-base font-sans leading-relaxed text-slate-300">
-            <span className="text-[#19B8C8] font-medium">Supporting key industrial hubs</span>{' '}
-            with reliable batch-certified process water logistics and dedicated tanker fleets.
+            <span className="text-[#19B8C8] font-medium">Also available across all industrial zones in Gujarat for Bulk Tanker Supply</span>, supporting manufacturing plants with reliable batch-certified process water logistics.
           </p>
         </div>
 

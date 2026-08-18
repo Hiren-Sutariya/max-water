@@ -13,13 +13,13 @@ export const WhyUs: React.FC = () => {
       icon: <ShieldCheck className="w-7 h-7 text-[#087EAA]" />,
       tag: 'BEST QUALITY',
       title: 'UNCOMPROMISED BEST QUALITY OF WATER',
-      desc: 'Formulated with multi-bed deionization and RO filtration. Every dispatch arrives with an official Certificate of Analysis (CoA) certifying TDS < 1 ppm.',
+      desc: 'Formulated with multi-bed deionization and RO filtration. Every dispatch arrives with an official Certificate of Analysis (CoA) certifying TDS or ppm at 0. And other components like sulphate, chlorine are also nil.',
     },
     {
       icon: <Zap className="w-7 h-7 text-[#087EAA]" />,
       tag: 'FAST DELIVERY',
       title: 'FAST TURNAROUND & RELIABLE DELIVERY',
-      desc: 'Equipped with dedicated SS tanker fleets and regional warehouse hubs ensuring rapid dispatch to your factory within 24–48 hours.',
+      desc: 'Equipped with dedicated SS tanker fleets and regional warehouse hubs ensuring rapid dispatch to your factory within 12–24 hours.',
     },
     {
       icon: <DollarSign className="w-7 h-7 text-[#087EAA]" />,

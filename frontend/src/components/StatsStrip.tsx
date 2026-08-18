@@ -5,7 +5,7 @@ export const StatsStrip: React.FC = () => {
     { value: '2006', label: 'ESTABLISHED YEAR' },
     { value: '6 CITIES', label: 'CITIES SERVED' },
     { value: '100%', label: 'CLIENT SATISFACTION' },
-    { value: 'TDS < 1', label: 'PURITY GRADIENT' },
+    { value: '0', label: 'TDS OR PPM' },
   ];
 
   return (
