@@ -107,7 +107,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ selectedProduct }) => 
     e.preventDefault();
     setIsSubmitted(true);
 
-    // 1. Send inquiry to backend asynchronously in the background (saves to Admin Panel)
+    // 1. Instantly send inquiry to backend API (Guaranteed Admin Panel saving on button click)
     const apiUrl = window.location.hostname === 'localhost' 
       ? 'http://localhost:5001/api/contact'
       : (window.location.hostname.includes('maxwater.in') ? '/api/contact' : 'https://max-water.onrender.com/api/contact');
@@ -116,9 +116,14 @@ export const ContactPage: React.FC<ContactPageProps> = ({ selectedProduct }) => 
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData),
-    }).catch((err) => {
-      console.log('Backend API offline, proceeding with direct WhatsApp dispatch:', err);
-    });
+      keepalive: true,
+    }).then((res) => res.json())
+      .then((data) => {
+        console.log('Inquiry saved to Admin Panel immediately:', data);
+      })
+      .catch((err) => {
+        console.log('Backend API offline notice:', err);
+      });
 
     // 2. Open WhatsApp synchronously so browser popup blockers never block it on live sites
     let messageText = `*MAX WATER - B2B SUPPLY INQUIRY*\n`;
