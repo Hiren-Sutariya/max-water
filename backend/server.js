@@ -78,7 +78,7 @@ app.get('/api/inquiries', (req, res) => {
 
 // Admin Credentials Configuration
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
-const ADMIN_PASS = process.env.ADMIN_PASS || 'maxwater@2026';
+const ADMIN_PASS = process.env.ADMIN_PASS || 'admin123';
 const ADMIN_AUTH_TOKEN = 'MW_ADMIN_SECRET_SESSION_TOKEN_2026';
 
 // Helper to check authentication from cookie or header
@@ -115,7 +115,7 @@ app.post('/api/admin/logout', (req, res) => {
 // GET /admin & GET /dashboard - Secure B2B Admin Inquiry Dashboard GUI (Protected)
 app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
   const inquiries = loadInquiries();
-  
+
   // Render Login Page if not authenticated
   const renderLoginScreen = () => `
 <!DOCTYPE html>
