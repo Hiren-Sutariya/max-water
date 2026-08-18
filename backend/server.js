@@ -76,10 +76,170 @@ app.get('/api/inquiries', (req, res) => {
   });
 });
 
-// GET /admin & GET /dashboard - Clean Light Theme B2B Admin Inquiry Dashboard GUI
+// Admin Credentials Configuration
+const ADMIN_USER = process.env.ADMIN_USER || 'admin';
+const ADMIN_PASS = process.env.ADMIN_PASS || 'maxwater@2026';
+const ADMIN_AUTH_TOKEN = 'MW_ADMIN_SECRET_SESSION_TOKEN_2026';
+
+// Helper to check authentication from cookie or header
+function isAuthorized(req) {
+  const cookieHeader = req.headers.cookie || '';
+  const authHeader = req.headers.authorization || '';
+  return cookieHeader.includes(`mw_admin_session=${ADMIN_AUTH_TOKEN}`) || authHeader.includes(ADMIN_AUTH_TOKEN);
+}
+
+// POST /api/admin/login - Authenticate Admin
+app.post('/api/admin/login', (req, res) => {
+  const { username, password } = req.body;
+  if (username === ADMIN_USER && password === ADMIN_PASS) {
+    res.setHeader('Set-Cookie', `mw_admin_session=${ADMIN_AUTH_TOKEN}; Path=/; HttpOnly; SameSite=Lax; Max-Age=86400`);
+    return res.status(200).json({
+      success: true,
+      token: ADMIN_AUTH_TOKEN,
+      message: 'Admin authentication successful!'
+    });
+  } else {
+    return res.status(401).json({
+      success: false,
+      error: 'Invalid Username or Password!'
+    });
+  }
+});
+
+// POST /api/admin/logout - Logout Admin
+app.post('/api/admin/logout', (req, res) => {
+  res.setHeader('Set-Cookie', 'mw_admin_session=; Path=/; HttpOnly; Max-Age=0');
+  return res.status(200).json({ success: true, message: 'Logged out successfully!' });
+});
+
+// GET /admin & GET /dashboard - Secure B2B Admin Inquiry Dashboard GUI (Protected)
 app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
   const inquiries = loadInquiries();
-  const htmlContent = `
+  
+  // Render Login Page if not authenticated
+  const renderLoginScreen = () => `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MAX WATER | Admin Portal Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #F4F8FA; color: #10202B; }
+    .font-heading { font-family: 'Chakra Petch', sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 bg-slate-100">
+
+  <div class="w-full max-w-md bg-white border border-[#EBEBEB] rounded-2xl shadow-xl p-8 space-y-6">
+    
+    <!-- Brand Header -->
+    <div class="text-center space-y-2">
+      <div class="w-14 h-14 rounded-xl bg-[#087EAA] mx-auto flex items-center justify-center font-heading font-bold text-white text-2xl shadow-md">
+        W
+      </div>
+      <h1 class="font-heading font-semibold text-2xl tracking-wider text-[#10202B] uppercase pt-2">
+        MAX WATER <span class="text-[#087EAA] text-xs font-sans font-bold px-2.5 py-0.5 rounded-full bg-[#087EAA]/10 border border-[#087EAA]/20">ADMIN PORTAL</span>
+      </h1>
+      <p class="text-xs text-[#5D7180] font-medium">Enter your credentials to access B2B inquiry records.</p>
+    </div>
+
+    <!-- Error Alert Banner -->
+    <div id="errorBanner" class="hidden bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-xs font-medium text-center">
+      Invalid Username or Password!
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4 text-left">
+      <div>
+        <label class="block text-xs font-heading font-semibold text-[#10202B] uppercase mb-1">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          required 
+          placeholder="admin" 
+          class="w-full bg-[#F4F8FA] border border-[#EBEBEB] rounded-lg px-4 py-2.5 text-sm text-[#10202B] focus:outline-none focus:border-[#087EAA] transition-all"
+        />
+      </div>
+
+      <div>
+        <label class="block text-xs font-heading font-semibold text-[#10202B] uppercase mb-1">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          required 
+          placeholder="••••••••" 
+          class="w-full bg-[#F4F8FA] border border-[#EBEBEB] rounded-lg px-4 py-2.5 text-sm text-[#10202B] focus:outline-none focus:border-[#087EAA] transition-all"
+        />
+      </div>
+
+      <button 
+        type="submit" 
+        id="loginBtn"
+        class="w-full bg-[#087EAA] hover:bg-[#063B5C] text-white font-heading font-semibold text-sm tracking-wider uppercase py-3 rounded-lg transition-all shadow-md cursor-pointer mt-2"
+      >
+        LOGIN TO PORTAL 🔒
+      </button>
+    </form>
+
+    <div class="text-center pt-2">
+      <p class="text-[11px] text-[#5D7180]">Authorized Personnel Only • Max Water B2B Logistics</p>
+    </div>
+  </div>
+
+  <script>
+    // Check if token exists in localStorage
+    if (localStorage.getItem('mw_admin_token') === '${ADMIN_AUTH_TOKEN}') {
+      document.cookie = "mw_admin_session=${ADMIN_AUTH_TOKEN}; path=/";
+      location.reload();
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const user = document.getElementById('username').value;
+      const pass = document.getElementById('password').value;
+      const btn = document.getElementById('loginBtn');
+      const err = document.getElementById('errorBanner');
+
+      err.classList.add('hidden');
+      btn.innerText = 'AUTHENTICATING...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username: user, password: pass })
+        });
+        const data = await res.json();
+        if (data.success) {
+          localStorage.setItem('mw_admin_token', data.token);
+          document.cookie = "mw_admin_session=" + data.token + "; path=/";
+          location.reload();
+        } else {
+          err.innerText = data.error || 'Invalid Username or Password!';
+          err.classList.remove('hidden');
+          btn.innerText = 'LOGIN TO PORTAL 🔒';
+          btn.disabled = false;
+        }
+      } catch (e) {
+        err.innerText = 'Login error. Please try again.';
+        err.classList.remove('hidden');
+        btn.innerText = 'LOGIN TO PORTAL 🔒';
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
+  `;
+
+  // Render Full Admin Dashboard
+  const renderDashboardScreen = () => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -119,6 +279,9 @@ app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
         </span>
         <button onclick="downloadCSV()" class="bg-[#087EAA] hover:bg-[#063B5C] text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-heading font-semibold tracking-wider uppercase transition-all flex items-center gap-1.5 cursor-pointer shadow-sm">
           📥 Export CSV
+        </button>
+        <button onclick="handleLogout()" class="bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-[11px] sm:text-xs font-heading font-semibold tracking-wider uppercase transition-all cursor-pointer">
+          🚪 Logout
         </button>
       </div>
     </div>
@@ -276,6 +439,13 @@ app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
       document.getElementById('visibleCount').innerText = visible;
     }
 
+    async function handleLogout() {
+      await fetch('/api/admin/logout', { method: 'POST' });
+      localStorage.removeItem('mw_admin_token');
+      document.cookie = "mw_admin_session=; path=/; max-age=0";
+      location.reload();
+    }
+
     async function deleteInquiry(id) {
       if (!confirm('Are you sure you want to delete inquiry ' + id + '?')) return;
       try {
@@ -323,8 +493,15 @@ app.get(['/admin', '/dashboard', '/inquiries-panel'], (req, res) => {
 </body>
 </html>
   `;
+
   res.setHeader('Content-Type', 'text/html');
-  res.send(htmlContent);
+
+  // Verify Session Token
+  if (isAuthorized(req)) {
+    res.send(renderDashboardScreen());
+  } else {
+    res.send(renderLoginScreen());
+  }
 });
 
 // DELETE /api/inquiries/:id - Delete an inquiry by ID
