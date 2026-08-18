@@ -2,18 +2,18 @@ import React from 'react';
 
 export const CitiesServed: React.FC = () => {
   const cities = [
-    'ANKLESHWAR',
-    'AHMEDABAD',
     'SURAT',
-    'VADODARA',
+    'Bharuch',
+    'ANKLESHWAR',
+    'NAVSARI',
+    'BARDOLI',
     'DAHEJ',
-    'VAPI',
   ];
 
   return (
     <section id="cities" className="w-full bg-[#10202B] py-16 md:py-24 border-b border-[#1E3442] select-none">
       <div className="max-w-[98%] sm:max-w-7xl mx-auto px-2 sm:px-4 md:px-12 text-center space-y-12">
-        
+
         {/* Centered Heading in Chakra Petch */}
         <div className="space-y-3">
           <h2 className="font-heading font-semibold text-2xl md:text-4xl tracking-wider text-white uppercase">

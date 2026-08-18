@@ -103,24 +103,24 @@ export const ContactPage: React.FC<ContactPageProps> = ({ selectedProduct }) => 
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitted(true);
 
-    try {
-      const apiUrl = window.location.hostname === 'localhost' 
-        ? 'http://localhost:5001/api/contact'
-        : 'https://max-water.onrender.com/api/contact';
+    // 1. Send inquiry to backend asynchronously in the background
+    const apiUrl = window.location.hostname === 'localhost' 
+      ? 'http://localhost:5001/api/contact'
+      : 'https://max-water.onrender.com/api/contact';
 
-      await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-    } catch (err) {
+    fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+    }).catch((err) => {
       console.log('Backend API offline, proceeding with direct WhatsApp dispatch:', err);
-    }
+    });
 
+    // 2. Open WhatsApp synchronously so browser popup blockers never block it on live sites
     let messageText = `*MAX WATER - B2B SUPPLY INQUIRY*\n`;
     messageText += `----------------------------------------\n`;
     messageText += `Hello Max Water team, I would like to inquire about industrial process water bulk supply.\n\n`;
