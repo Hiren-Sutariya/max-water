@@ -43,6 +43,16 @@ function saveInquiry(inquiry) {
   return current;
 }
 
+// Favicon Route for Google Search Crawler & Browser Indexing
+app.get(['/favicon.ico', '/favicon.svg'], (req, res) => {
+  const faviconPath = path.join(__dirname, '../frontend/public/favicon.svg');
+  if (fs.existsSync(faviconPath)) {
+    res.setHeader('Content-Type', 'image/svg+xml');
+    return res.sendFile(faviconPath);
+  }
+  res.status(404).end();
+});
+
 // Root API Welcome Route
 app.get('/', (req, res) => {
   res.status(200).json({
