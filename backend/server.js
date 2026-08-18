@@ -6,10 +6,10 @@ const fs = require('fs');
 const app = express();
 const PORT = process.env.PORT || 5001;
 
-// Enable CORS for frontend Vite dev server (http://localhost:5173)
+// Enable CORS for all origins, production domains, and HTTP methods
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:3000'],
-  methods: ['GET', 'POST', 'OPTIONS'],
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
